@@ -1,6 +1,6 @@
 {
   "name": "art-generator",
-  "description": "Express' application generator",
+  "description": "Express' application generator(modified for IRONHACK use)",
   "version": "1.0.0",
   "author": "TJ Holowaychuk <tj@vision-media.ca>",
   "contributors": [
@@ -29,11 +29,10 @@
   "license": "MIT",
   "dependencies": {
     "commander": "2.9.0",
-    "ejs": "2.5.6",
     "mkdirp": "0.5.1",
     "sorted-object": "2.0.1"
   },
-  "main": "bin/express",
+  "main": "bin/artgenerate",
   "preferGlobal": true,
   "bin": {
     "artgenerate": "./bin/artgenerate"
