@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+var ejs = require('ejs');
 var program = require('commander');
 var mkdirp = require('mkdirp');
 var os = require('os');
@@ -175,11 +176,6 @@ function createApplication(app_name, path) {
 
     mkdir(path + '/views', function(){
       switch (program.view) {
-        case 'ejs':
-          copy_template('ejs/index.ejs', path + '/views/index.ejs');
-          copy_template('ejs/layout.ejs', path + '/views/layout.ejs');
-          copy_template('ejs/error.ejs', path + '/views/error.ejs');
-          break;
         case 'jade':
           copy_template('jade/index.jade', path + '/views/index.jade');
           copy_template('jade/layout.jade', path + '/views/layout.jade');
@@ -267,11 +263,16 @@ function createApplication(app_name, path) {
       , dependencies: {
           'bcrypt': '~1.0.2',
           'express': '~4.14.1',
+          'express-ejs-layouts': '~2.2.0',
+          'express-session': '~1.15.2',
           'body-parser': '~1.16.0',
           'cookie-parser': '~1.4.3',
           'debug': '~2.6.0',
           'morgan': '~1.7.0',
+          'passport': '~0.3.2',
+          'passport-local': '~1.0.0',
           'serve-favicon': '~2.3.2',
+          'mongoose': '~4.8.5'
       }
       , devDependencies: {
           'nodemon': '~1.11.0'
@@ -282,10 +283,6 @@ function createApplication(app_name, path) {
     switch (program.view) {
       case 'jade':
         pkg.dependencies['jade'] = '~1.11.0';
-        break;
-      case 'ejs':
-        pkg.dependencies['ejs'] = '~2.5.5';
-        pkg.dependencies['express-ejs-layouts'] = '~2.2.0';
         break;
       case 'hjs':
         pkg.dependencies['hjs'] = '~0.0.6';

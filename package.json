@@ -1,7 +1,7 @@
 {
   "name": "art-generator",
   "description": "Express' application generator",
-  "version": "4.14.3",
+  "version": "1.0.0",
   "author": "TJ Holowaychuk <tj@vision-media.ca>",
   "contributors": [
     "Aaron Heckmann <aaron.heckmann+github@gmail.com>",
@@ -29,6 +29,7 @@
   "license": "MIT",
   "dependencies": {
     "commander": "2.9.0",
+    "ejs": "2.5.6",
     "mkdirp": "0.5.1",
     "sorted-object": "2.0.1"
   },

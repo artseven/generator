@@ -3,14 +3,19 @@ const path         = require('path');
 const favicon      = require('serve-favicon');
 const logger       = require('morgan');
 const cookieParser = require('cookie-parser');
-const bodyParser   = require('body-parser');{viewrequire}{dbrequire}
+const bodyParser   = require('body-parser');
+const layouts      = require('express-ejs-layouts');
+const mongoose     = require('mongoose');
+const bcrypt       = require('bcrypt');
+const session      = require('express-session');
+const passport     = require('passport');{viewrequire}{dbrequire}
 
 {dbconnect}
 const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', '{views}');
+app.set('view engine', 'ejs');
 
 // default value for title local
 app.locals.title = 'Express - Generated with ArtGenerator';
@@ -21,11 +26,20 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());{css}
-app.use(express.static(path.join(__dirname, 'public')));{viewmiddleware}
-
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(layouts);
+app.use(session({
+  // Change to create unique access key
+  secret: '',
+  // These two options are to prevent warnings
+  resave: true,
+  saveUninitialized: true
+}) );{viewmiddleware}
+//---------HERE GO ALL THE ROUTES-------------------
 const index = require('./routes/index');
 app.use('/', index);
 
+// -------------------------------------------------
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
   const err = new Error('Not Found');
