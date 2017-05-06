@@ -9,12 +9,12 @@ var rimraf = require('rimraf');
 var spawn = require('child_process').spawn;
 var validateNpmName = require('validate-npm-package-name')
 
-var binPath = path.resolve(__dirname, '../bin/irongenerate');
+var binPath = path.resolve(__dirname, '../bin/artgenerate');
 var TEMP_DIR = path.resolve(__dirname, '..', 'temp', String(process.pid + Math.random()))
 var fileCount = 16
 var titleRegex = /<title>Express.*<\/title>/
 
-describe('irongenerate(1)', function () {
+describe('artgenerate(1)', function () {
   before(function (done) {
     this.timeout(30000);
     cleanup(done);
@@ -44,7 +44,7 @@ describe('irongenerate(1)', function () {
     })
 
     it('should provide debug instructions', function () {
-      assert.ok(/DEBUG=irongenerate\(1\)-\(no-args\):\* (?:\& )?npm start/.test(ctx.stdout))
+      assert.ok(/DEBUG=artgenerate\(1\)-\(no-args\):\* (?:\& )?npm start/.test(ctx.stdout))
     });
 
     it('should have basic files', function () {
@@ -63,7 +63,7 @@ describe('irongenerate(1)', function () {
       var file = path.resolve(ctx.dir, 'package.json');
       var contents = fs.readFileSync(file, 'utf8');
       assert.equal(contents, '{\n'
-        + '  "name": "irongenerate(1)-(no-args)",\n'
+        + '  "name": "artgenerate(1)-(no-args)",\n'
         + '  "version": "0.0.0",\n'
         + '  "private": true,\n'
         + '  "scripts": {\n'
