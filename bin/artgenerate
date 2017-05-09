@@ -57,7 +57,7 @@ program
   // Adding options
   .option('-b, --crypt <engine>', 'add encryption <engine> support (bcrypt) (defaults to none)')
   .option('-p, --auth <engine>', 'add user authentication <engine> support (passport) (defaults to none)')
-  .option('-s, --cookie <engine>', 'add cookie <engine> support (session) (defaults to none)')
+  .option('-s, --session <engine>', 'add session <engine> support (session) (defaults to none)')
   .parse(process.argv);
 
 if (!exit.exited) {
@@ -180,8 +180,9 @@ function createApplication(app_name, path) {
     mkdir(path + '/views', function(){
       switch (program.view) {
         case 'ejs':
-          copyTemplate('ejs/index.ejs', path + '/views/index.ejs');
-          copyTemplate('ejs/error.ejs', path + '/views/error.ejs');
+          copy_template('ejs/index.ejs', path + '/views/index.ejs');
+          copy_template('ejs/layout.ejs', path + '/views/layout.ejs');
+          copy_template('ejs/error.ejs', path + '/views/error.ejs');
           break;
         case 'jade':
           copy_template('jade/index.jade', path + '/views/index.jade');
@@ -261,6 +262,13 @@ function createApplication(app_name, path) {
         app = app.replace('{dbconnect}', '');
     }
 
+    // Encryption Engine support
+    switch (program.crypt) {
+      case 'bcrypt':
+        app = app.replace('{viewrequire}', eol+ 'const bcrypt = require (\'bcrypt\');');
+        app = app.replace('{viewmiddleware}')
+    }
+
     // package.json
     var pkg = {
         name: app_name
@@ -268,16 +276,12 @@ function createApplication(app_name, path) {
       , private: true
       , scripts: { start: 'node ./bin/www' }
       , dependencies: {
-          'bcrypt': '~1.0.2',
           'express': '~4.15.2',
-          'express-session': '~1.15.2',
           'body-parser': '~1.16.0',
           'cookie-parser': '~1.4.3',
           'debug': '~2.6.0',
           'morgan': '~1.7.0',
-          'passport': '~0.3.2',
-          'serve-favicon': '~2.3.2',
-          'mongoose': '~4.8.5'
+          'serve-favicon': "~2.3.2"
       }
       , devDependencies: {
           'nodemon': '~1.11.0'
@@ -291,6 +295,7 @@ function createApplication(app_name, path) {
         break;
       case 'ejs':
         pkg.dependencies['ejs'] = '~2.5.6';
+        pkg.dependencies['express-ejs-layouts'] = '~2.2.0';
         break;
       case 'hjs':
         pkg.dependencies['hjs'] = '~0.0.6';
@@ -339,6 +344,22 @@ function createApplication(app_name, path) {
     switch (program.crypt) {
       case 'bcrypt':
         pkg.dependencies['bcrypt'] = '~1.0.2';
+        break;
+      default:
+    }
+
+    // User authorization support
+    switch(program.auth) {
+      case 'passport':
+        pkg.dependencies['passport'] = "~0.3.2";
+        break;
+      default:
+    }
+
+    // Express session support
+    switch(program.session) {
+      case 'session':
+        pkg.dependencies["express-session"] = "~1.15.2";
         break;
       default:
     }

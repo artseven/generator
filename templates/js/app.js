@@ -11,7 +11,7 @@ const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+app.set('view engine', '{views}');
 
 // default value for title local
 app.locals.title = 'Express - Generated with ArtGenerator';
@@ -22,8 +22,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());{css}
-app.use(express.static(path.join(__dirname, 'public')));
-app.use(layouts);{viewmiddleware}
+app.use(express.static(path.join(__dirname, 'public')));{viewmiddleware}
 // app.use(session({
 //   // Change to create unique access key as a secret string
 //   secret: '',
