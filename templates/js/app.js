@@ -3,7 +3,11 @@ const path         = require('path');
 const favicon      = require('serve-favicon');
 const logger       = require('morgan');
 const cookieParser = require('cookie-parser');
-const bodyParser   = require('body-parser');{viewrequire}{dbrequire}
+const bodyParser   = require('body-parser');
+const bcrypt       = require('bcrypt');
+const passport     = require('passport');
+const session      = require('passport-session');
+{viewrequire}{dbrequire}
 
 
 {dbconnect}
