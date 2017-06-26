@@ -14,8 +14,8 @@ The quickest way to get started with express is to utilize the executable `artge
 Create the app:
 
 ```bash
-$ artgenerate --view=ejs --database=mongoose --git  awesome-project/
-$ cd awesome-project/
+$ artgenerate --view=ejs --database=mongoose --git  cool-project/
+$ cd cool-project/
 ```
 
 Install dependencies:
@@ -45,6 +45,10 @@ This generator can also be further configured with the following command line fl
     -d, --database <engine> add <engine> database support (mongoose) (defaults to none)
         --git               add .gitignore
     -f, --force             force on non-empty directory
+    -b, --crypt <engine>    add encryption <engine> support (bcrypt) (defaults to none)
+    -p, --auth <engine>     add user authentication <engine> support (passport) (defaults to none)
+    -s, --session <engine>  add session <engine> support (session) (defaults to none)
+
 
 ## License
 
